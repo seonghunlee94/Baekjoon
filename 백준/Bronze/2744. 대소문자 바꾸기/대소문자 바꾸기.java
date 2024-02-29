@@ -6,21 +6,14 @@ public class Main {
 
         String str = sc.next();
 
-        int i;
-        char ch;
-        String result = "";
+        for (int i = 0; i < str.length(); i++) {
 
-        for (i = 0; i < str.length(); i++) {
-            ch = str.charAt(i);
-
-            if (Character.isUpperCase(ch)) {
-                result = result + Character.toLowerCase(ch);
-            }else {
-                result = result + Character.toUpperCase(ch);
+            if ('A' <= str.charAt(i) && str.charAt(i) <= 'Z' ) {
+                System.out.print((char)('a' + str.charAt(i) - 'A'));
+            } else {
+                System.out.print((char)('A' + str.charAt(i) - 'a'));
             }
         }
-
-        System.out.println(result);
 
     }
 }
