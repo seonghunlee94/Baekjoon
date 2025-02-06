@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Arrays;
 
 public class Main {
 
@@ -10,19 +9,21 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        Integer[] numList = new Integer[N];
+        boolean[] checkNum = new boolean[2000001];
 
-        for (int i = 0; i < numList.length; i++) {
-            numList[i] = Integer.parseInt(br.readLine());
+        for (int i = 0; i < N; i++) {
+            int num = Integer.parseInt(br.readLine());
+            checkNum[num+1000000] = true;
         }
 
-        Arrays.sort(numList);
-
-        for (Integer num: numList) {
-            bw.write(num+"\n");
+        for (int i = 0; i < checkNum.length; i++) {
+            if (checkNum[i] == true) {
+                bw.write(i - 1000000 + "\n");
+            }
         }
 
         bw.flush();
-
+        bw.close();
+        br.close();
     }
 }
