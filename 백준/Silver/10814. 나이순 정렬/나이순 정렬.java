@@ -19,9 +19,9 @@ class Main {
         Arrays.sort(member, new Comparator<Member>() {
             @Override
             public int compare(Member o1, Member o2) {
-                if (o1.age != o2.age)
-                    return o1.age - o2.age;
-                return o1.idx - o2.idx;
+//                if (o1.age != o2.age)
+                return o1.age - o2.age;
+//                return o1.idx - o2.idx;
             }
         });
 
