@@ -1,7 +1,5 @@
 import java.io.*;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.*;
 
 class Main {
 
@@ -10,37 +8,21 @@ class Main {
         Scanner sc = new Scanner(System.in);
 
         int N = sc.nextInt();
-        Employee[] employees = new Employee[N+1];
-        int count = 0;
+        Set<String> entered = new TreeSet<>();
+        String name;
+
         for (int i = 0; i < N; i++) {
-            employees[i] = new Employee(sc.next(), sc.next());
-            count++;
-        }
-        employees[count] = new Employee("1234556", "123");
-        Arrays.sort(employees, new Comparator<Employee>() {
-            @Override
-            public int compare(Employee o1, Employee o2) {
-                return o2.name.compareTo(o1.name);
+            name = sc.next();
+            if (sc.next().equals("enter")) {
+                entered.add(name);
+            } else {
+                entered.remove(name);
             }
-        });
-
-        for (int j = 0; j < N; j++) {
-            if (employees[j].type.equals("enter") && !employees[j+1].type.equals("leave"))
-                System.out.println(employees[j].name);
         }
 
-    }
+        String[] orderedAnswer = entered.toArray(new String[entered.size()]);
+        for (int i = orderedAnswer.length - 1; i >= 0; i--)
+            System.out.println(orderedAnswer[i]);
 
-}
-
-class Employee {
-    String name;
-    String type;
-
-    Employee(String name, String type) {
-        this.name = name;
-        this.type = type;
     }
 }
-
-
