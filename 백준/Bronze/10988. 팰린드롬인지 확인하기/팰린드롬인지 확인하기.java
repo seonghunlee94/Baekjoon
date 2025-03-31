@@ -6,13 +6,23 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         String word = sc.nextLine();
-        String reversedWord = new StringBuilder(word).reverse().toString();
 
-        if (word.equals(reversedWord)) {
-            System.out.println(1);
-        } else {
-            System.out.println(0);
+        int left = 0;
+        int right = word.length() - 1;
+
+        while (left < right) {
+
+            if (word.charAt(left) != word.charAt(right)) {
+                System.out.println(0);
+                return;
+            }
+
+            left++;
+            right--;
+
         }
+
+        System.out.println(1);
 
     }
 }
