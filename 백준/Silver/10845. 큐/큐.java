@@ -1,51 +1,96 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+
+import java.io.*;
+import java.util.NoSuchElementException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        Scanner sc = new Scanner(System.in);
+        int N = Integer.parseInt(br.readLine());
+        MyQueue<Integer> q = new MyQueue<>();
 
-        int num = Integer.parseInt(sc.nextLine());
-        String[] str;
+        while (N-- > 0) {
+            String[] cmd = br.readLine().split(" ");
 
-        ArrayList<Integer> list = new ArrayList<>();
-
-        while (num > 0) {
-
-            str = sc.nextLine().split(" ");
-
-            switch (str[0]) {
+            switch (cmd[0]) {
                 case "push":
-                    list.add(Integer.parseInt(str[1].trim()));
+                    q.enqueue(Integer.parseInt(cmd[1].trim()));
                     break;
                 case "pop":
-                    if (list.size() > 0)
-                        System.out.println(list.remove(0));
-                    else System.out.println(-1);
+                    bw.write(q.isEmpty() ? "-1\n" : q.dequeue() + "\n");
                     break;
                 case "size":
-                    System.out.println(list.size());
+                    bw.write(q.size() + "\n");
                     break;
                 case "empty":
-                    if (list.size() == 0)
-                        System.out.println(1);
-                    else System.out.println(0);
+                    bw.write(q.isEmpty() ? "1\n" : "0\n");
                     break;
                 case "front":
-                    if (list.size() == 0)
-                        System.out.println(-1);
-                    else System.out.println(list.get(0));
+                    bw.write(q.isEmpty() ? "-1\n" : q.getFront() + "\n");
                     break;
                 case "back":
-                    if (list.size() == 0)
-                        System.out.println(-1);
-                    else System.out.println(list.get(list.size() - 1));
+                    bw.write(q.isEmpty() ? "-1\n" : q.getRear() + "\n");
                     break;
             }
+        }
 
-            num--;
+        bw.flush();
+    }
+}
+
+
+class MyQueue<E> {
+
+    private int size = 0;
+    private Node<E> frontNode = null;
+    private Node<E> rearNode = null;
+
+    public static class Node<E> {
+        E item;
+        Node<E> next;
+        Node(E element, Node<E> next) {
+            this.item = element;
+            this.next = next;
         }
 
     }
+
+    public void enqueue(E element) {
+        Node<E> newNode = new Node<>(element, null);
+
+        if (size == 0) frontNode = newNode;
+        else rearNode.next = newNode;
+        rearNode = newNode;
+        size++;
+    }
+
+    public E dequeue() {
+        if (size == 0)
+            throw new NoSuchElementException("Queue is empty.");
+
+        E item = frontNode.item;
+        frontNode = frontNode.next;
+        if (frontNode == null)
+            rearNode = null;
+        size--;
+        return item;
+    }
+
+    public E getFront() {
+        return frontNode.item;
+    }
+
+    public E getRear() {
+        return rearNode.item;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
 }
