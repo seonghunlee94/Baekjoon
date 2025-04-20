@@ -2,17 +2,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    static boolean isExist(String[] arr, String x) {
-        int l = 0, r = arr.length - 1;
-        while (l <= r) {
-            int m = (l + r) / 2;
-            int compareResult = arr[m].compareTo((x));
-            if (compareResult < 0) l = m + 1;
-            else if (compareResult > 0) r = m - 1;
-            else return true;
-        }
-        return false;
-    }
 
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -34,10 +23,9 @@ public class Main {
             String x = sc.next();
 
             // 2. arr에 x가 있는지 확인한다.
-            if (isExist(arr, x)) {
+            if (Arrays.binarySearch(arr, x) >= 0) // 값이 있는 경우 인덱스 리턴
                 count++;
-            }
-
+            
         }
 
         System.out.println(count);
